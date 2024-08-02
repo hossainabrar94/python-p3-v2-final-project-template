@@ -14,7 +14,7 @@ class Project:
         self.start_date = start_date
         self.end_date = end_date
 
-    #client name must be non-empty string
+    # client name must be non-empty string
     @property
     def client(self):
         return self._client
@@ -25,7 +25,7 @@ class Project:
         else:
             raise ValueError('Must enter clients name')
 
-    #start and end dates must be in date time format    
+    # start and end dates must be in date time format    
     @property
     def start_date(self):
         return self._start_date
@@ -51,3 +51,16 @@ class Project:
                 self._end_date = datetime.strptime(end_date, '%m-%d-%Y')
             except ValueError:
                 raise ValueError("End date must be in 'MM-DD-YYYY' format")
+
+    # quote must be am integer         
+    @property
+    def quote(self):
+        return self._quote
+    @quote.setter
+    def quote(self, quote):
+        if quote is type(int):
+            self._quote = quote
+        else:
+            raise ValueError('Please enter a valid amount')
+        
+    
