@@ -63,16 +63,18 @@ class Project:
         else:
             raise ValueError('Please enter a valid amount')
         
-    
+    @classmethod
     def create_table(self):
         pass
 
+    @classmethod
     def drop_table(self):
         pass
 
     def save(self):
         pass
 
+    @classmethod
     def create(self):
         pass
 
@@ -82,14 +84,20 @@ class Project:
     def delete(self):
         pass
 
+    @classmethod
     def get_all(self):
         pass
 
+    @classmethod
     def find_by_name(self):
         pass
 
     def expenses(self):
         pass
 
+    @classmethod
     def project_by_year(self):
+        pass
+
+    def employees(self):
         pass
