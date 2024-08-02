@@ -1,4 +1,5 @@
 from models.__init__ import CURSOR, CONN
+from datetime import datetime
 
 class Project:
 
@@ -13,6 +14,7 @@ class Project:
         self.start_date = start_date
         self.end_date = end_date
 
+    #client name must be non-empty string
     @property
     def client(self):
         return self._client
@@ -22,3 +24,30 @@ class Project:
             self._client = client
         else:
             raise ValueError('Must enter clients name')
+
+    #start and end dates must be in date time format    
+    @property
+    def start_date(self):
+        return self._start_date
+    @start_date.setter
+    def start_date(self, start_date):
+        if start_date is None:
+            self._start_date = None
+        else:
+            try:
+                self._start_date = datetime.strptime(start_date, '%m-%d-%Y')
+            except ValueError:
+                raise ValueError("Start date must be in 'MM-DD-YYYY' format")
+            
+    @property
+    def end_date(self):
+        return self._end_date
+    @end_date.setter
+    def end_date(self, end_date):
+        if end_date is None:
+            self._end_date = None
+        else:
+            try:
+                self._end_date = datetime.strptime(end_date, '%m-%d-%Y')
+            except ValueError:
+                raise ValueError("End date must be in 'MM-DD-YYYY' format")
