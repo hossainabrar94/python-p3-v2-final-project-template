@@ -1,56 +1,25 @@
 from models.__init__ import CURSOR, CONN
-from datetime import datetime
 
 class Project:
 
-    # save all projects
-    all_project = {}
+    # save projects
+    all = {}
 
-    def __init__(self, name, client, location, quote, start_date = None, end_date = None):
+    def __init__(self, name, quote, id = None):
+        self.id = id
         self.name = name
-        self.client = client
-        self.location = location
         self.quote = quote
-        self.start_date = start_date
-        self.end_date = end_date
 
-    # client name must be non-empty string
+    # name must be non-empty string
     @property
-    def client(self):
-        return self._client
-    @client.setter
-    def client(self, client):
-        if isinstance(client, str) and len(client):
-            self._client = client
+    def name(self):
+        return self._name
+    @name.setter
+    def name(self, name):
+        if isinstance(name, str) and len(name):
+            self._name = name
         else:
-            raise ValueError('Must enter clients name')
-
-    # start and end dates must be in date time format    
-    @property
-    def start_date(self):
-        return self._start_date
-    @start_date.setter
-    def start_date(self, start_date):
-        if start_date is None:
-            self._start_date = None
-        else:
-            try:
-                self._start_date = datetime.strptime(start_date, '%m-%d-%Y')
-            except ValueError:
-                raise ValueError("Start date must be in 'MM-DD-YYYY' format")
-            
-    @property
-    def end_date(self):
-        return self._end_date
-    @end_date.setter
-    def end_date(self, end_date):
-        if end_date is None:
-            self._end_date = None
-        else:
-            try:
-                self._end_date = datetime.strptime(end_date, '%m-%d-%Y')
-            except ValueError:
-                raise ValueError("End date must be in 'MM-DD-YYYY' format")
+            raise ValueError('Must enter a name')
 
     # quote must be am integer         
     @property
@@ -64,18 +33,36 @@ class Project:
             raise ValueError('Please enter a valid amount')
         
     @classmethod
-    def create_table(self):
-        pass
+    def create_table(cls):
+        sql = """
+        CREATE TABLE IF NOT EXISTS projects (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        quote INTEGER)
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
 
     @classmethod
-    def drop_table(self):
-        pass
+    def drop_table(cls):
+        sql = """
+        DROP TABLE IF EXISTS projects;
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
 
     def save(self):
-        pass
+        sql = """
+        INSERT INTO projects (name, quote)
+        VALUES (?, ?)
+        """
+
+        CURSOR.execute(sql, (self.name, self.quote))
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self
 
     @classmethod
-    def create(self):
+    def create(cls):
         pass
 
     def update(self):
@@ -85,19 +72,12 @@ class Project:
         pass
 
     @classmethod
-    def get_all(self):
+    def get_all(cls):
         pass
 
     @classmethod
-    def find_by_name(self):
+    def find_by_name(cls):
         pass
 
     def expenses(self):
-        pass
-
-    @classmethod
-    def project_by_year(self):
-        pass
-
-    def employees(self):
         pass
