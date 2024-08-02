@@ -1,15 +1,11 @@
-from models.__init__ import CONN, CURSOR
+from models.__init__ import CONN,CURSOR
 
-class Employee:
+class Trade:
 
-    # Save all employees
-    all_employees = {}
+    # save all trades
+    all_trades = {}
 
-    def __init__(self):
-        pass
-
-    # description of employee
-    def __repr__(self):
+    def __init__(self, name, id=None):
         pass
 
     @classmethod
@@ -23,10 +19,6 @@ class Employee:
     def save(self):
         pass
 
-    @classmethod
-    def create(cls):
-        pass
-
     def update(self):
         pass
 
@@ -34,12 +26,12 @@ class Employee:
         pass
 
     @classmethod
-    def get_all(cls):
+    def get_all_trades(cls):
         pass
 
     @classmethod
     def find_by_name(cls):
         pass
 
-    def projects(self):
+    def employees(self):
         pass
