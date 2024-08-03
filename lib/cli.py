@@ -58,13 +58,15 @@ def project_menu(project_id):
         options = {
             "a": add_expense,
             "u": update_project,
-            "v": view_project_expenses,
-            "d": delete_project
+            "v": view_project_expenses
         }
         if choice == "b":
             break
         elif choice == "e":
             exit_program()
+        elif choice == "d":
+            delete_project(project_id)
+            view_projects_menu()
         elif choice in options:
             options[choice](project_id)
         else:

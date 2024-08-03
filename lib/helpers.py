@@ -96,12 +96,16 @@ def update_project(project_id):
 def view_project_expenses(project_id):
     project = Project.find_by_id(project_id)
     expenses = project.expenses()
+    print(f'The expenses for project {project.name}')
     for expense in expenses:
-        print(f'{expense.description}: ${expense.amount}')
+        print(f'{expense.description}: ${expense.amount}...')
     print('\n**************************************************************\n')
 
 def delete_project(project_id):
-    pass
+    project = Project.find_by_id(project_id)
+    project.delete()
+    print('Project has been deleted')
+    print('\n**************************************************************\n')
 
 def exit_program():
     print("Goodbye!")

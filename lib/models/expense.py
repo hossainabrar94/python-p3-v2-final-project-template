@@ -76,7 +76,9 @@ class Expense:
             expense.amount = row[2]
             expense.project_id = row[3]
         else:
-            expense = cls.create(row[1], row[2], row[3])
+            expense = cls(row[1], row[2], row[3])
+            expense.id = row[0]
+            cls.all[expense.id] = expense
         return expense
     
     def update(self):
