@@ -58,6 +58,8 @@ class Project:
         """
 
         CURSOR.execute(sql, (self.name, self.quote))
+        CONN.commit()
+        
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 

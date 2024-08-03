@@ -2,16 +2,17 @@
 from models.expense import Expense
 from models.project import Project
 
+
+# ********************************************************************     Project Functions       ****************************************************************************
 def view_projects():
     print('\n**************************************************************\n')
     print("Projects:")
     project_id_map = {}
     projects = Project.get_all()
-    # for project in projects:
-    #     print(f'{project.id}. {project.name}')
     for index, project in enumerate(projects, start=1):
         print(f'{index}. {project.name}')
         project_id_map[index] = project.id
+    print('\n')
     return project_id_map
     
 def add_project():
@@ -30,7 +31,7 @@ def add_project():
         try:    
             Project.create(name, quote)
             print(f'Project {name} has been added')
-            view_projects()
+            print('\n**************************************************************\n')
             break
         except ValueError as e:
             print(f'Error: {e}')
@@ -83,12 +84,16 @@ def delete_project(project_id):
     project.delete()
     print('Project has been deleted')
 
+
+# ********************************************************************     Expense Functions       ****************************************************************************
 def view_project_expenses(project_id):
     project = Project.find_by_id(project_id)
     expenses = project.expenses()
-    print(f'Expenses for project {project.name} below:')
-    # for expense in expenses:
-    #     print(f'{expense.id}. {expense.description}')
+    if expenses:
+        print(f'Expenses for project {project.name} below:')
+    else:
+        print(f'Expenses for project {project.name} below:')
+        print('No expense incurred')
     expense_id_map = {}
     for index, expense in enumerate(expenses, start =1):
         print(f'{index}. {expense.description}')
@@ -124,7 +129,6 @@ def add_expense(project_id):
             Expense.create(description, float(amount), project_id)
             print('The expense has been added')
             print('\n**************************************************************\n')
-            view_project_expenses(project_id)
             break
         except ValueError as e:
             print(f'Error: {e}')
