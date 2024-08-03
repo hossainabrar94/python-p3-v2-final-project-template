@@ -54,8 +54,9 @@ def view_projects_menu():
                     print('\n**************************************************************\n')
                     print('Invalid project number entered')
                     view_projects()
-            except ValueError as e:
-                print(f'Error: {e}')
+            except ValueError:
+                print('Invalid option')
+                view_projects()
 
 def project_menu(project_id):
     selected_project(project_id)
@@ -78,6 +79,7 @@ def project_menu(project_id):
             options[choice](project_id)
         else:
             print('Invalid option')
+            project_menu(project_id)
 
 
 # ********************************************************************     Expense Menues       ****************************************************************************
@@ -107,7 +109,8 @@ def view_project_expenses_menu(project_id):
                     print('\n')
                     view_project_expenses(project_id)
             except ValueError as e:        
-                print(f'Error: {e}')
+                print('Invalid option')
+                view_project_expenses_menu(project_id)
         
 def expense_menu(expense_id, project_id):
     selected_expense(expense_id)
@@ -126,6 +129,7 @@ def expense_menu(expense_id, project_id):
             update_project_expense(expense_id)
         else:
             print('Invalid option')
+            print('\n')
 
 
 # ********************************************************************     Main Menues       ****************************************************************************

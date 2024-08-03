@@ -37,8 +37,9 @@ def add_project():
             print(f'Project {name} has been added')
             print('\n**************************************************************\n')
             break
-        except ValueError as e:
-            print(f'Error: {e}')
+        except ValueError:
+            print('Project could not be added')
+            print('\n')
 
 def selected_project(project_id):
     project = Project.find_by_id(project_id)
@@ -51,6 +52,7 @@ def selected_project(project_id):
     else:
         print('\n**************************************************************\n')
         print('Project not found')
+        print('\n')
 
 def update_project(project_id):
     while True:
@@ -134,8 +136,9 @@ def add_expense(project_id):
             print('The expense has been added')
             print('\n**************************************************************\n')
             break
-        except ValueError as e:
-            print(f'Error: {e}')
+        except ValueError:
+            print('Expense could not be added')
+            print('\n')
 
 def delete_project_expense(expense_id):
     expense = Expense.find_by_id(expense_id)
