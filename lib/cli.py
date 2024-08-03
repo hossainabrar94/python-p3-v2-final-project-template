@@ -10,18 +10,18 @@ def main():
     while True:
         menu()
         choice = input("> ")
-        if choice == "0":
+        if choice == "e" or "E":
             exit_program()
-        elif choice == "1":
+        elif choice == "P" or "p":
             helper_1()
         else:
-            print("Invalid choice")
+            print("Invalid option")
 
 
 def menu():
     print("Please select an option:")
-    print("0. Exit the program")
-    print("1. Some useful function")
+    print("E/e: To exit the program")
+    print("P/p: To view projects")
 
 
 if __name__ == "__main__":
