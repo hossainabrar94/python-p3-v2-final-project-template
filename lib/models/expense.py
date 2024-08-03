@@ -33,7 +33,7 @@ class Expense:
     @classmethod
     def create_table(cls):
         sql = """
-            CREATE TABLE IF NOT EXISTS projects (
+            CREATE TABLE IF NOT EXISTS expenses (
             id INTEGER PRIMARY KEY,
             description TEXT,
             amount REAL,
