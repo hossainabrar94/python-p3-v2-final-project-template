@@ -6,7 +6,9 @@ from helpers import (
     add_project,
     selected_project,
     add_expense,
-    update_project
+    update_project,
+    view_project_expenses,
+    delete_project
 )
 from models.project import Project
 
@@ -37,27 +39,32 @@ def view_projects_menu():
             exit_program()
         elif choice == "a":
             add_project()
-        try:
-            project_id = int(choice)
-            if Project.find_by_id(project_id):
-                selected_project(project_id)
-                project_menu(project_id)
-            else:
-                print('Invalid project number entered')
-        except ValueError:
-            print('Invalid option')
+        else:
+            try:
+                project_id = int(choice)
+                if Project.find_by_id(project_id):
+                    selected_project(project_id)
+                    project_menu(project_id)
+                else:
+                    print('Invalid project number entered')
+            except ValueError:
+                print('Invalid options')
 
 def project_menu(project_id):
     while True:
-        print('Would you like to...\n a: add an expense\n u: update project details\n b: to go back\n e: to exit')
+        print('Would you like to...\n a: add an expense\n u: update project details\n v: view all project expenses\n d: delete project\n b: to go back\n e: to exit')
+        print('\n**************************************************************\n')
         choice = input('> ')
         options = {
             "a": add_expense,
             "u": update_project,
-            "e": exit_program
+            "v": view_project_expenses,
+            "d": delete_project
         }
         if choice == "b":
             break
+        elif choice == "e":
+            exit_program()
         elif choice in options:
             options[choice](project_id)
         else:

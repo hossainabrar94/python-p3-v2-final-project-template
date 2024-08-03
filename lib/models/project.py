@@ -16,10 +16,10 @@ class Project:
         return self._name
     @name.setter
     def name(self, name):
-        if isinstance(name, str) and len(name):
+        if isinstance(name, str) and len(name) and not name.isdigit():
             self._name = name
         else:
-            raise ValueError('Must enter a name')
+            raise ValueError('Must enter a valid name')
 
     # quote must be an integer         
     @property
@@ -27,7 +27,7 @@ class Project:
         return self._quote
     @quote.setter
     def quote(self, quote):
-        if isinstance(quote, (int, float)):
+        if isinstance(quote, (int,float)) and quote >0:
             self._quote = quote
         else:
             raise ValueError('Please enter a valid amount')
