@@ -36,7 +36,7 @@ class Expense:
             CREATE TABLE IF NOT EXISTS projects (
             id INTEGER PRIMARY KEY,
             description TEXT,
-            amount INTEGER,
+            amount REAL,
             project_id INTEGER,
             FOREIGN KEY (project_id) REFERENCES projects(id))
         """
@@ -108,7 +108,7 @@ class Expense:
     def get_project(self):
         from models.project import Project
         sql = """
-            SELECT * FROM projcets
+            SELECT * FROM projects
             WHERE id = ?
         """
         row = CURSOR.execute(sql, (self.project_id, )).fetchone()

@@ -38,7 +38,7 @@ class Project:
             CREATE TABLE IF NOT EXISTS projects (
             id INTEGER PRIMARY KEY,
             name TEXT NOT NULL,
-            quote INTEGER)
+            quote REAL)
         """
         CURSOR.execute(sql)
         CONN.commit()
