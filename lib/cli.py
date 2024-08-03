@@ -1,5 +1,4 @@
 # lib/cli.py
-
 from helpers import (
     exit_program,
     view_projects,
