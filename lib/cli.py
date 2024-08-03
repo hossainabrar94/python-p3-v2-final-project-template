@@ -32,7 +32,7 @@ def main():
 
 
 # ********************************************************************     Project Menues       ****************************************************************************
-def view_projects_menu(): # errors out of the cli when entering random number
+def view_projects_menu():
     project_id_map = view_projects()
     while True:
         print(' All Project Menu: Please select from the options below...\n\n project number: to view project details\n b: back to main menu\n a: to add a new project\n e: to exit')
@@ -48,14 +48,15 @@ def view_projects_menu(): # errors out of the cli when entering random number
         else:
             try:
                 index = int(choice)
-                project_id = project_id_map[index]
+                project_id = project_id_map.get(index)
                 if Project.find_by_id(project_id):
-                    # selected_project(project_id)
                     project_menu(project_id)
                 else:
+                    print('\n**************************************************************\n')
                     print('Invalid project number entered')
-            except ValueError:
-                print('Invalid options')
+                    view_projects()
+            except ValueError as e:
+                print(f'Error: {e}')
 
 def project_menu(project_id):
     selected_project(project_id)
@@ -83,7 +84,6 @@ def project_menu(project_id):
 # ********************************************************************     Expense Menues       ****************************************************************************
 def view_project_expenses_menu(project_id):
     print('\n**************************************************************\n')
-    # view_project_expenses(project_id)
     expense_id_map = view_project_expenses(project_id)
     while True:
         print(' All Project Expense Menu: Please select from the options below...\n\n expense number: to view expense detail\n a: to add an expense\n b: back to project menu\n e: to exit')

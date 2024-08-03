@@ -6,9 +6,13 @@ from models.project import Project
 # ********************************************************************     Project Functions       ****************************************************************************
 def view_projects():
     print('\n**************************************************************\n')
-    print("Projects:")
     project_id_map = {}
     projects = Project.get_all()
+    if projects:
+        print("Projects:")
+    else:
+        print("Projects:")
+        print('No projects have been added')
     for index, project in enumerate(projects, start=1):
         print(f'{index}. {project.name}')
         project_id_map[index] = project.id
