@@ -98,15 +98,6 @@ class Expense:
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
 
-    @classmethod
-    def find_by_description(cls, description):
-        sql = """
-            SELECT * FROM expenses
-            WHERE description = ?
-        """
-        row = CURSOR.execute(sql, (description,)).fetchone()
-        return cls.instance_from_db(row) if row else None
-
     def get_project(self):
         from models.project import Project
         sql = """
@@ -115,3 +106,12 @@ class Expense:
         """
         row = CURSOR.execute(sql, (self.project_id, )).fetchone()
         return Project.instance_from_db(row)
+    
+    # @classmethod
+    # def find_by_description(cls, description):
+    #     sql = """
+    #         SELECT * FROM expenses
+    #         WHERE description = ?
+    #     """
+    #     row = CURSOR.execute(sql, (description,)).fetchone()
+    #     return cls.instance_from_db(row) if row else None

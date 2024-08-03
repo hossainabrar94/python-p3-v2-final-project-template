@@ -107,15 +107,6 @@ class Project:
         return [cls.instance_from_db(row) for row in rows]
 
     @classmethod
-    def find_by_name(cls, name):
-        sql = """
-            SELECT * FROM projects
-            WHERE name = ?
-        """
-        row = CURSOR.execute(sql, (name,)).fetchone()
-        return cls.instance_from_db(row) if row else None
-    
-    @classmethod
     def find_by_id(cls, id):
         sql = """
             SELECT * FROM projects
@@ -123,7 +114,6 @@ class Project:
         """
         row = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_db(row) if row else None
-
 
     def expenses(self):
         from models.expense import Expense
@@ -133,3 +123,12 @@ class Project:
         """
         rows = CURSOR.execute(sql, (self.id,)).fetchall()
         return [Expense.instance_from_db(row) for row in rows]
+    
+    # @classmethod
+    # def find_by_name(cls, name):
+    #     sql = """
+    #         SELECT * FROM projects
+    #         WHERE name = ?
+    #     """
+    #     row = CURSOR.execute(sql, (name,)).fetchone()
+    #     return cls.instance_from_db(row) if row else None

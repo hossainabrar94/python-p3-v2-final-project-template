@@ -5,10 +5,12 @@ from helpers import (
     view_projects,
     add_project,
     selected_project,
-    add_expense,
     update_project,
+    delete_project,
+    add_expense,
     view_project_expenses,
-    delete_project
+    delete_project_expenses,
+    update_project_expenses,
 )
 from models.project import Project
 
