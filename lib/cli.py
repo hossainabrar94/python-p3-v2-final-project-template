@@ -27,7 +27,9 @@ def main():
 def view_projects_menu():
     view_projects()
     while True:
-        print('Select a project by number to view details\n or\n b: to go back\n or\n a: to add a new project\n or\n e: to exit')
+        print('\n**************************************************************\n')
+        print(' Please select from the options below...\n\n project number: to view project details\n b: to go back\n a: to add a new project\n e: to exit')
+        print('\n**************************************************************\n')
         choice = input('> ').lower()
         if choice == "b":
             break
@@ -47,7 +49,7 @@ def view_projects_menu():
 
 def project_menu(project_id):
     while True:
-        print('a: add an expense\n u: update project details\n b: to go back\n e: to exit')
+        print('Would you like to...\n a: add an expense\n u: update project details\n b: to go back\n e: to exit')
         choice = input('> ')
         options = {
             "a": add_expense,
@@ -63,7 +65,8 @@ def project_menu(project_id):
 
 
 def menu():
-    print("Please select an option:")
+    print('**************************************************************\n')
+    print("Please select an option...")
     print("p: To view projects")
     print("e: To exit the program")
 
