@@ -107,6 +107,15 @@ class Expense:
         row = CURSOR.execute(sql, (self.project_id, )).fetchone()
         return Project.instance_from_db(row)
     
+    @classmethod
+    def find_by_id(cls, id):
+        sql = """
+            SELECT * FROM expenses
+            WHERE id = ?
+        """
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+    
     # @classmethod
     # def find_by_description(cls, description):
     #     sql = """

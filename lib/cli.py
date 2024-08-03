@@ -9,10 +9,12 @@ from helpers import (
     delete_project,
     add_expense,
     view_project_expenses,
-    delete_project_expenses,
-    update_project_expenses,
+    delete_project_expense,
+    update_project_expense,
+    selected_expense,
 )
 from models.project import Project
+from models.expense import Expense
 
 
 def main():
@@ -32,11 +34,11 @@ def view_projects_menu():
     view_projects()
     while True:
         print('\n**************************************************************\n')
-        print(' Please select from the options below...\n\n project number: to view project details\n b: to go back\n a: to add a new project\n e: to exit')
+        print(' All Project Menu: Please select from the options below...\n\n project number: to view project details\n b: back to main menu\n a: to add a new project\n e: to exit')
         print('\n**************************************************************\n')
         choice = input('> ').lower()
         if choice == "b":
-            break
+            main()
         elif choice == "e":
             exit_program()
         elif choice == "a":
@@ -53,14 +55,14 @@ def view_projects_menu():
                 print('Invalid options')
 
 def project_menu(project_id):
+    selected_project(project_id)
     while True:
-        print('Would you like to...\n a: add an expense\n u: update project details\n v: view all project expenses\n d: delete project\n b: to go back\n e: to exit')
+        print(' Project Menu: Would you like to...\n u: update project details\n v: view all project expenses\n d: delete project\n b: back to all projects\n e: to exit')
         print('\n**************************************************************\n')
         choice = input('> ')
         options = {
-            "a": add_expense,
             "u": update_project,
-            "v": view_project_expenses
+            "v": view_project_expenses_menu
         }
         if choice == "b":
             break
@@ -74,10 +76,52 @@ def project_menu(project_id):
         else:
             print('Invalid option')
 
+def view_project_expenses_menu(project_id):
+    print('\n**************************************************************\n')
+    expense_id_map = view_project_expenses(project_id)
+    while True:
+        print(' All Project Expense Menu: Please select from the options below...\n\n expense number: to view expense detail\n a: to add an expense\n b: back to project menu\n e: to exit')
+        print('\n**************************************************************\n')
+        choice = input('> ')
+        if choice == "b":
+            project_menu(project_id)
+        elif choice == "e":
+            exit_program()
+        elif choice == "a":
+            add_expense(project_id) #can possibly update the add_expense to take the choice number instead
+        else:
+            try:
+                index = int(choice)
+                # expense_id = int(choice)
+                expense_id = expense_id_map.get(index)
+                if Expense.find_by_id(expense_id):
+                    expense_menu(expense_id, project_id)
+                else:
+                    print('Invalid expense number entered')
+            except ValueError as e:        
+                print(f'Error: {e}')
+        
+def expense_menu(expense_id, project_id):
+    selected_expense(expense_id)
+    print('\n')
+    while True:
+        print(' Expense Menu: Would you like to...\n\n u: update expense details\n d: delete the expense\n b: back to all expenses\n e: to exit')
+        choice = input('> ')
+        if choice == "b":
+            view_project_expenses_menu(project_id)
+        elif choice == "e":
+            exit_program()
+        elif choice == "d":
+            delete_project_expense(expense_id)
+            view_project_expenses_menu(project_id)
+        elif choice == "u":
+            update_project_expense(expense_id)
+        else:
+            print('Invalid option')
 
 def menu():
     print('**************************************************************\n')
-    print("Please select an option...")
+    print(" Main Menu: Please select an option...")
     print("p: To view projects")
     print("e: To exit the program")
 
