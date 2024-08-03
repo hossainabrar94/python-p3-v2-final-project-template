@@ -27,7 +27,7 @@ class Project:
         return self._quote
     @quote.setter
     def quote(self, quote):
-        if quote is type(int):
+        if isinstance(quote, (int, float)):
             self._quote = quote
         else:
             raise ValueError('Please enter a valid amount')
@@ -122,4 +122,4 @@ class Project:
             WHERE project_id = ?
         """
         rows = CURSOR.execute(sql, (self.id,)).fetchall()
-        return [Expense.instace_from_db(row) for row in rows]
+        return [Expense.instance_from_db(row) for row in rows]
