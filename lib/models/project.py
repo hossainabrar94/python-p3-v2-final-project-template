@@ -59,7 +59,7 @@ class Project:
 
         CURSOR.execute(sql, (self.name, self.quote))
         CONN.commit()
-        
+
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 
@@ -80,6 +80,13 @@ class Project:
         CONN.commit()
 
     def delete(self):
+        # Delete associated expenses first
+        sql_expenses = """
+            DELETE FROM expenses
+            WHERE project_id = ?
+        """
+        CURSOR.execute(sql_expenses, (self.id,))
+
         sql = """
             DELETE FROM projects
             WHERE id = ?
